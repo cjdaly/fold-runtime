@@ -1,0 +1,91 @@
+<!--
+ - Copyright (c) 2015 Chris J Daly (github user cjdaly)
+ - All rights reserved. This program and the accompanying materials
+ - are made available under the terms of the Eclipse Public License v1.0
+ - which accompanies this distribution, and is available at
+ - http://www.eclipse.org/legal/epl-v10.html
+ -
+ - Contributors:
+ -   cjdaly - initial API and implementation
+-->
+<project name="fold-setup" default="main">
+
+	<property name="fold-runtime-dir" value="${basedir}" />
+	<property name="neo4j-download-version" value="2.2.1" />
+	<property name="neo4j-data-dir" value="../data/neo4j/graph.db" />
+
+	<target name="clean" depends="neo4j-setup-init,data-setup-init">
+		<delete dir="${neo4j-extract-dir}" />
+	</target>
+
+	<target name="main" depends="neo4j-setup,data-setup">
+	</target>
+
+	<target name="neo4j-setup" depends="neo4j-setup-init,neo4j-download,neo4j-extract,neo4j-config">
+	</target>
+
+	<target name="neo4j-setup-init">
+		<property name="neo4j-dir" value="${fold-runtime-dir}/neo4j" />
+		<property name="neo4j-download-dir" value="${neo4j-dir}/downloads" />
+		<property name="neo4j-extract-dirname" value="neo4j-community-${neo4j-download-version}" />
+		<property name="neo4j-extract-dir" value="${neo4j-dir}/${neo4j-extract-dirname}" />
+		<property name="neo4j-download-filename" value="${neo4j-extract-dirname}-unix.tar.gz" />
+		<property name="neo4j-download-file" value="${neo4j-download-dir}/${neo4j-download-filename}" />
+		<property name="neo4j-download-tarfilename" value="${neo4j-extract-dirname}-unix.tar" />
+		<property name="neo4j-download-tarfile" value="${neo4j-download-dir}/${neo4j-download-tarfilename}" />
+		<property name="neo4j-download-url" value="http://neo4j.com/artifact.php?name=${neo4j-download-filename}" />
+		<property name="neo4j-conf-dir" value="${neo4j-extract-dir}/conf" />
+
+		<available property="neo4j-download-available" file="${neo4j-download-file}" />
+		<available property="neo4j-extract-available" file="${neo4j-extract-dir}" type="dir" />
+	</target>
+
+	<target name="neo4j-download" unless="neo4j-download-available">
+		<mkdir dir="${neo4j-download-dir}" />
+		<get src="${neo4j-download-url}" dest="${neo4j-download-file}" />
+	</target>
+
+	<target name="neo4j-extract" unless="neo4j-extract-available">
+		<gunzip src="${neo4j-download-file}" dest="${neo4j-download-tarfile}" />
+		<untar src="${neo4j-download-tarfile}" dest="${neo4j-extract-dir}/.." />
+		<delete file="${neo4j-download-tarfile}" />
+		<fail>
+			<condition>
+				<not>
+					<available file="${neo4j-extract-dir}" type="dir" />
+				</not>
+			</condition>
+		</fail>
+	</target>
+
+	<target name="neo4j-config" depends="data-setup-init">
+		<replace-property 
+			property-file="${neo4j-conf-dir}/neo4j-server.properties"
+			property-name="org.neo4j.server.database.location"
+			property-value="${neo4j-data-dir}"
+		/>
+	</target>
+
+	<target name="data-setup-init">
+		<property name="data-dir" value="${fold-runtime-dir}/data" />
+	</target>
+
+	<target name="data-setup" depends="data-setup-init">
+
+	</target>
+
+	<macrodef name="replace-property">
+		<attribute name="property-file" />
+		<attribute name="property-name" />
+		<attribute name="property-value" />
+		<sequential>
+			<echo>Replacing in file @{property-file}:</echo>
+			<echo>  @{property-name}=@{property-value}</echo>
+			<replaceregexp file="@{property-file}" byline="true">
+				<regexp pattern="(@{property-name})=(.*)" />
+				<substitution expression="\1=@{property-value}" />
+			</replaceregexp>
+		</sequential>
+	</macrodef>
+
+</project>
