@@ -9,10 +9,13 @@
  -   cjdaly - initial API and implementation
 -->
 <project name="fold-setup" default="main">
+	<property file="./fold-setup.properties" />
 
 	<property name="fold-runtime-dir" value="${basedir}" />
+	<property name="fold-data-dirname" value="data" />
+	<property name="fold-data-dir" value="${fold-runtime-dir}/${fold-data-dirname}" />
 	<property name="neo4j-download-version" value="2.2.1" />
-	<property name="neo4j-data-dir" value="../data/neo4j/graph.db" />
+	<property name="neo4j-database.location" value="../${fold-data-dirname}/neo4j/graph.db" />
 
 	<target name="clean" depends="neo4j-setup-init,data-setup-init">
 		<delete dir="${neo4j-extract-dir}" />
@@ -21,7 +24,11 @@
 	<target name="main" depends="neo4j-setup,data-setup">
 	</target>
 
-	<target name="neo4j-setup" depends="neo4j-setup-init,neo4j-download,neo4j-extract,neo4j-config">
+	<target name="neo4j-setup" depends="
+		neo4j-setup-init,
+		neo4j-download,
+		neo4j-extract,
+		neo4j-config">
 	</target>
 
 	<target name="neo4j-setup-init">
@@ -59,31 +66,25 @@
 	</target>
 
 	<target name="neo4j-config" depends="data-setup-init">
-		<replace-property 
-			property-file="${neo4j-conf-dir}/neo4j-server.properties"
-			property-name="org.neo4j.server.database.location"
-			property-value="${neo4j-data-dir}"
-		/>
+		<replace-property file="${neo4j-conf-dir}/neo4j-server.properties" name="org.neo4j.server.database.location" value="${neo4j-database.location}" />
 	</target>
 
 	<target name="data-setup-init">
-		<property name="data-dir" value="${fold-runtime-dir}/data" />
 	</target>
 
 	<target name="data-setup" depends="data-setup-init">
-
 	</target>
 
 	<macrodef name="replace-property">
-		<attribute name="property-file" />
-		<attribute name="property-name" />
-		<attribute name="property-value" />
+		<attribute name="file" />
+		<attribute name="name" />
+		<attribute name="value" />
 		<sequential>
-			<echo>Replacing in file @{property-file}:</echo>
-			<echo>  @{property-name}=@{property-value}</echo>
-			<replaceregexp file="@{property-file}" byline="true">
-				<regexp pattern="(@{property-name})=(.*)" />
-				<substitution expression="\1=@{property-value}" />
+			<echo>Replacing in file @{file}:</echo>
+			<echo>  @{name}=@{value}</echo>
+			<replaceregexp file="@{file}" byline="true">
+				<regexp pattern="(@{name})=(.*)" />
+				<substitution expression="\1=@{value}" />
 			</replaceregexp>
 		</sequential>
 	</macrodef>
