@@ -17,5 +17,10 @@
 
     ./fold.sh status
     ./fold.sh start
+
+Point web browser to [http://localhost:8421/fold](http://localhost:8421/fold).
+
+To shutdown:
+
     ./fold.sh stop
 
