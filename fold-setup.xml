@@ -15,7 +15,7 @@
 	<property name="fold-data-dirname" value="data" />
 	<property name="fold-data-dir" value="${fold-runtime-dir}/${fold-data-dirname}" />
 	<property name="neo4j-download-version" value="2.2.1" />
-	<property name="neo4j-database.location" value="../${fold-data-dirname}/neo4j/graph.db" />
+	<property name="neo4j-database.location" value="../../${fold-data-dirname}/neo4j/graph.db" />
 
 	<target name="clean" depends="neo4j-setup-init,data-setup-init">
 		<delete dir="${neo4j-extract-dir}" />
@@ -38,8 +38,6 @@
 		<property name="neo4j-extract-dir" value="${neo4j-dir}/${neo4j-extract-dirname}" />
 		<property name="neo4j-download-filename" value="${neo4j-extract-dirname}-unix.tar.gz" />
 		<property name="neo4j-download-file" value="${neo4j-download-dir}/${neo4j-download-filename}" />
-		<property name="neo4j-download-tarfilename" value="${neo4j-extract-dirname}-unix.tar" />
-		<property name="neo4j-download-tarfile" value="${neo4j-download-dir}/${neo4j-download-tarfilename}" />
 		<property name="neo4j-download-url" value="http://neo4j.com/artifact.php?name=${neo4j-download-filename}" />
 		<property name="neo4j-conf-dir" value="${neo4j-extract-dir}/conf" />
 
@@ -53,9 +51,10 @@
 	</target>
 
 	<target name="neo4j-extract" unless="neo4j-extract-available">
-		<gunzip src="${neo4j-download-file}" dest="${neo4j-download-tarfile}" />
-		<untar src="${neo4j-download-tarfile}" dest="${neo4j-extract-dir}/.." />
-		<delete file="${neo4j-download-tarfile}" />
+		<exec executable="tar" dir="${neo4j-dir}">
+			<arg value="xvf" />
+			<arg value="${neo4j-download-file}" />
+		</exec>
 		<fail>
 			<condition>
 				<not>
