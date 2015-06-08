@@ -10,7 +10,11 @@
 #   cjdaly - initial API and implementation
 ####
 
-java -jar eclipse/plugins/org.eclipse.equinox.launcher_1.3.0.v20140415-2008.jar \
+# http://www.ostricher.com/2014/10/the-right-way-to-get-the-directory-of-a-bash-script/
+FOLD_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+java -jar $FOLD_HOME/eclipse/plugins/org.eclipse.equinox.launcher_1.3.0.v20140415-2008.jar \
  -consoleLog -clean \
+ -data $FOLD_HOME/data/eclipse/workspace \
  -vmargs \
  -Xms40m -Xmx256m
