@@ -14,7 +14,7 @@
 	<property name="fold-runtime-dir" value="${basedir}" />
 	<property name="fold-data-dirname" value="data" />
 	<property name="fold-data-dir" value="${fold-runtime-dir}/${fold-data-dirname}" />
-	<property name="neo4j-download-version" value="2.2.1" />
+	<property name="neo4j-download-version" value="2.2.2" />
 	<property name="neo4j-database.location" value="../../${fold-data-dirname}/neo4j/graph.db" />
 
 	<target name="clean" depends="neo4j-setup-init,data-setup-init">
@@ -65,7 +65,11 @@
 	</target>
 
 	<target name="neo4j-config" depends="data-setup-init">
+		
 		<replace-property file="${neo4j-conf-dir}/neo4j-server.properties" name="org.neo4j.server.database.location" value="${neo4j-database.location}" />
+		
+		<replace-property file="${neo4j-conf-dir}/neo4j-server.properties" name="dbms.security.auth_enabled" value="false" />
+		
 	</target>
 
 	<target name="data-setup-init">
