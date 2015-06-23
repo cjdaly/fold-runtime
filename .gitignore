@@ -2,6 +2,9 @@
 /data/
 /neo4j/
 
+/logs/
+/fold.log
+/fold.PID
+
 /eclipse/configuration/org.eclipse.*/
 !/eclipse/configuration/org.eclipse.osgi.equinox.simpleconfigurator/
-
