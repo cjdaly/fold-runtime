@@ -23,9 +23,6 @@ case "$1" in
     FOLD_PID=`cat $FOLD_PID_FILE`
     echo "Fold process $FOLD_PID already running."
   else
-    FOLD_SYSTEM_DIR=$2
-    echo "Fold system dir: $FOLD_SYSTEM_DIR"
-    
     # log setup
     FOLD_LOGS_DIR="logs"
     mkdir -p $FOLD_LOGS_DIR
