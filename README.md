@@ -14,7 +14,7 @@
     cd fold-runtime
     ant -f fold-setup.xml
 
-Also need to make sure `/etc/security/limits.conf` has lines like this for the fold user (user is `pi` in example below):
+Also need to make sure `/etc/security/limits.conf` has lines like this for the fold user (`pi` in example below):
 
     pi hard nofile 40000
     pi soft nofile 40000
