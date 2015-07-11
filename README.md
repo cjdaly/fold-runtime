@@ -11,7 +11,7 @@
     cd
     git clone https://github.com/cjdaly/fold-runtime.git
     cd fold-runtime
-    ant fold-setup.xml
+    ant -f fold-setup.xml
 
 ### normal operation
 
