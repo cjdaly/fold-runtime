@@ -5,6 +5,7 @@
 - Linux
 - Java 7 or 8
 - Ant (try `ant -version` and `sudo apt-get install ant`)
+- lsof (on rPi run `sudo apt-get install lsof`)
 
 ### initial setup
 
@@ -12,6 +13,11 @@
     git clone https://github.com/cjdaly/fold-runtime.git
     cd fold-runtime
     ant -f fold-setup.xml
+
+Also need to make sure `/etc/security/limits.conf` has lines like this for the fold user (user is `pi` in example below):
+
+    pi hard nofile 40000
+    pi soft nofile 40000
 
 ### normal operation
 
