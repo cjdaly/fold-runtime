@@ -14,10 +14,7 @@
     cd fold-runtime
     ant -f fold-setup.xml
 
-Also need to make sure `/etc/security/limits.conf` has lines like this for the fold user (`pi` in example below):
-
-    pi hard nofile 40000
-    pi soft nofile 40000
+You may need to edit `/etc/security/limits.conf` (as root) to increase the open file limit for the fold user.  Check the output of the ant script for details on this and any similar manual setup steps.
 
 ### normal operation
 
