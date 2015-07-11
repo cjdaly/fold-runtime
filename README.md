@@ -26,3 +26,6 @@ To shutdown:
 
     ./fold.sh stop
 
+### more info
+
+See the [fold](https://github.com/cjdaly/fold) development repo.
