@@ -14,7 +14,7 @@
     cd fold-runtime
     ant -f fold-setup.xml
 
-You may need to edit `/etc/security/limits.conf` (as root) to increase the open file limit for the fold user.  Check the output of the ant script for details on this and any similar manual setup steps.
+You may need to edit `/etc/security/limits.conf` (as root) to increase the open files limit for the fold user.  Check the output of the ant script for details on this and any similar manual setup steps.
 
 ### normal operation
 
