@@ -49,8 +49,12 @@
 			</and>
 		</condition>
 
-		<fail unless="check-open-files-limits-PASS">
-			Missing open files settings in /etc/security/limits.conf!
+		<fail unless="check-open-files-limits-PASS">Missing configuration settings!
+
+Action: Add the following lines to /etc/security/limits.conf:
+
+${user.name} hard nofile 40000
+${user.name} soft nofile 40000
 		</fail>
 	</target>
 
