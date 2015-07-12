@@ -23,7 +23,7 @@ You may need to edit `/etc/security/limits.conf` (as root) to increase the open 
 
 To connect from a browser on the local machine, use [http://localhost:8421/fold](http://localhost:8421/fold).
 
-To connect from another machine, check fold log (`tail -f fold.log`) for fold URLs with IP addresses, or use `ifconfig` to determine fold machine IP addr and construct numerical URL like [http://127.0.0.1:8421/fold](http://127.0.0.1:8421/fold).
+To connect from another machine, check fold log (`tail -f fold.log`) for fold URLs with IP addresses, or use `ifconfig` to determine fold machine IP address and construct numerical URL with port `8421` like [http://127.0.0.1:8421/fold](http://127.0.0.1:8421/fold).
 
 To shutdown:
 
