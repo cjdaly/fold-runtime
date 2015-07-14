@@ -31,8 +31,17 @@ case "$1" in
     rm -f fold.log
     ln -s $FOLD_LOG fold.log
     
+    # thing id
+    if [ -z "$2" ]; then
+      FOLD_THING_PROFILE_ID="default"
+    else
+      FOLD_THING_PROFILE_ID="$2"
+    fi
+    
     # launch eclipse
-    java -jar $FOLD_HOME/eclipse/plugins/org.eclipse.equinox.launcher_1.3.0.v20140415-2008.jar \
+    java \
+     -Dnet.locosoft.fold.channel.thing.profile.id=$FOLD_THING_PROFILE_ID \
+     -jar $FOLD_HOME/eclipse/plugins/org.eclipse.equinox.launcher_1.3.0.v20140415-2008.jar \
      -consoleLog -clean \
      -data $FOLD_HOME/data/eclipse/workspace \
      -vmargs \
@@ -68,7 +77,7 @@ case "$1" in
   ;;
   *)
   echo "Fold usage:"
-  echo "  ./fold.sh start"
+  echo "  ./fold.sh start [Thing profileId]"
   echo "  ./fold.sh stop"
   echo "  ./fold.sh status"
   ;;
