@@ -4,10 +4,15 @@
 
 - Linux
 - Java 7 or 8
-- Ant (try `ant -version` and `sudo apt-get install ant`)
-- lsof (on rPi run `sudo apt-get install lsof`)
 
 ### initial setup
+
+First make sure Linux tool dependencies are installed:
+
+    sudo apt-get update
+    sudo apt-get install ant git gnuplot lsof
+
+Then setup fold area:
 
     cd
     git clone https://github.com/cjdaly/fold-runtime.git
@@ -28,6 +33,12 @@ To connect from another machine, check fold log (`tail -f fold.log`) for fold UR
 To shutdown:
 
     ./fold.sh stop
+
+### updating
+
+Make sure the fold server is stopped and you are in the `fold-runtime` directory, then do:
+
+    git pull
 
 ### more info
 
