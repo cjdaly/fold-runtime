@@ -21,6 +21,8 @@ Then setup fold area:
 
 You may need to edit `/etc/security/limits.conf` (as root) to increase the open files limit for the fold user.  Check the output of the ant script for details on this and other manual setup steps.
 
+__Recommended:__ Reboot at this point (with `sudo shutdown -r now`) to make sure all system changes take effect.
+
 ### normal operation
 
     ./fold.sh status
@@ -36,7 +38,7 @@ To shutdown:
 
 ### updating
 
-Make sure the fold server is stopped and you are in the `fold-runtime` directory, then do:
+__Important:__ Make sure the fold server is stopped before updating!  Then go to the `fold-runtime` directory, and do:
 
     git pull
 
