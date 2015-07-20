@@ -25,6 +25,7 @@ __Recommended:__ Reboot at this point (with `sudo shutdown -r now`) to make sure
 
 ### normal operation
 
+    cd ~/fold-runtime
     ./fold.sh status
     ./fold.sh start
 
