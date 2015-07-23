@@ -10,7 +10,7 @@
 First make sure Linux tool dependencies are installed:
 
     sudo apt-get update
-    sudo apt-get install ant git gnuplot lsof
+    sudo apt-get install ant git gnuplot graphviz lsof
 
 Then setup fold area:
 
