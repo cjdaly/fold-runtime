@@ -21,7 +21,7 @@ case "$1" in
   start)
   if [ -f "$FOLD_PID_FILE" ]; then
     FOLD_PID=`cat $FOLD_PID_FILE`
-    echo "Fold process $FOLD_PID already running."
+    echo "fold process $FOLD_PID already running."
   else
     # log setup
     FOLD_LOGS_DIR="logs"
@@ -51,32 +51,32 @@ case "$1" in
     FOLD_PID=$!
     
     echo "$FOLD_PID" > $FOLD_PID_FILE
-    echo "Fold process: $FOLD_PID" >> $FOLD_LOG
-    echo "Fold process: $FOLD_PID"
-    echo "Fold log: ./fold.log -> $FOLD_LOG"
+    echo "fold process: $FOLD_PID" >> $FOLD_LOG
+    echo "fold process: $FOLD_PID"
+    echo "fold log: ./fold.log -> $FOLD_LOG"
   fi
   ;;
   stop)
   if [ -f "$FOLD_PID_FILE" ]; then
     FOLD_PID=`cat $FOLD_PID_FILE`
     rm $FOLD_PID_FILE
-    echo "Fold process $FOLD_PID now shutting down."
+    echo "fold process $FOLD_PID now shutting down."
     kill $FOLD_PID
     tail -f fold.log --pid=$FOLD_PID
   else
-    echo "Fold already stopped or stopping."
+    echo "fold already stopped or stopping."
   fi
   ;;
   status)
   if [ -f "$FOLD_PID_FILE" ]; then
     FOLD_PID=`cat $FOLD_PID_FILE`
-    echo "Fold process $FOLD_PID apparently running."
+    echo "fold process $FOLD_PID apparently running."
   else
-    echo "Fold stopped or stopping."
+    echo "fold stopped or stopping."
   fi
   ;;
   *)
-  echo "Fold usage:"
+  echo "fold usage:"
   echo "  ./fold.sh start [Thing profileId]"
   echo "  ./fold.sh stop"
   echo "  ./fold.sh status"
