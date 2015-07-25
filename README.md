@@ -39,9 +39,9 @@ To shutdown:
 
 ### updating
 
-__Important:__ Make sure the fold server is stopped before updating!  Then go to the `fold-runtime` directory, and do:
+__Note:__ The fold server must be stopped before updating!
 
-    git pull
+    ./fold.sh update
 
 ### more info
 
