@@ -75,11 +75,20 @@ case "$1" in
     echo "fold stopped or stopping."
   fi
   ;;
+  update)
+  if [ -f "$FOLD_PID_FILE" ]; then
+    FOLD_PID=`cat $FOLD_PID_FILE`
+    echo "Stop fold (process $FOLD_PID) before updating!"
+  else
+    git pull
+  fi
+  ;;
   *)
   echo "fold usage:"
+  echo "  ./fold.sh status"
   echo "  ./fold.sh start [Thing profileId]"
   echo "  ./fold.sh stop"
-  echo "  ./fold.sh status"
+  echo "  ./fold.sh update"
   ;;
 esac
 
