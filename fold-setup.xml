@@ -9,12 +9,12 @@
  -   cjdaly - initial API and implementation
 -->
 <project name="fold-setup" default="main">
-	<property file="./fold-setup.properties" />
+	<property file="./eclipse/configuration/config.ini" prefix="eclipse-config"/>
 
 	<property name="fold-runtime-dir" value="${basedir}" />
 	<property name="fold-data-dirname" value="data" />
 	<property name="fold-data-dir" value="${fold-runtime-dir}/${fold-data-dirname}" />
-	<property name="neo4j-download-version" value="2.2.2" />
+	<property name="neo4j-download-version" value="${eclipse-config.net.locosoft.fold.neo4j.version}" />
 	<property name="neo4j-database.location" value="../../${fold-data-dirname}/neo4j/graph.db" />
 
 	<target name="clean" depends="neo4j-setup-init">

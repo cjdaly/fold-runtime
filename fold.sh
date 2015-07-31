@@ -81,6 +81,7 @@ case "$1" in
     echo "Stop fold (process $FOLD_PID) before updating!"
   else
     git pull
+    ant -f fold-setup.xml
   fi
   ;;
   *)
