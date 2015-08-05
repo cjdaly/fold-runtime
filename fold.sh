@@ -61,7 +61,6 @@ case "$1" in
     FOLD_PID=`cat $FOLD_PID_FILE`
     rm $FOLD_PID_FILE
     echo "fold process $FOLD_PID now shutting down."
-    kill $FOLD_PID
     tail -f fold.log --pid=$FOLD_PID
   else
     echo "fold already stopped or stopping."
