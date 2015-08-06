@@ -17,9 +17,9 @@ Then setup fold area:
     cd
     git clone https://github.com/cjdaly/fold-runtime.git
     cd fold-runtime
-    ant -f fold-setup.xml
+    ./fold.sh update
 
-You may need to edit `/etc/security/limits.conf` (as root) to increase the open files limit for the fold user.  Check the output of the ant script for details on this and other manual setup steps.
+You may need to edit `/etc/security/limits.conf` (as root) to increase the open files limit for the fold user.  Check the output of the ant script for details on this and other manual setup steps. Run `./fold.sh update` again after making changes to confirm successful setup checks.
 
 __Recommended:__ Reboot at this point (with `sudo shutdown -r now`) to make sure all system changes take effect.
 
