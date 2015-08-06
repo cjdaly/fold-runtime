@@ -9,7 +9,7 @@
  -   cjdaly - initial API and implementation
 -->
 <project name="fold-setup" default="main">
-	<property file="./eclipse/configuration/config.ini" prefix="eclipse-config"/>
+	<property file="./eclipse/configuration/config.ini" prefix="eclipse-config" />
 
 	<property name="fold-runtime-dir" value="${basedir}" />
 	<property name="fold-data-dirname" value="data" />
@@ -122,23 +122,25 @@ ${user.name} soft nofile 40000
 	</macrodef>
 
 	<target name="reconcile-extensions">
-		<mkdir dir="${fold-extend-plugins-dir}"/>
-		<delete file="${fold-extend-plugins-dir}/bundles.info"/>
-		<delete file="${fold-extend-plugins-dir}/bundles.info.fragment"/>
-		
-		<fileset id="fold-extend-plugins.id" dir="${fold-extend-plugins-dir}" includes="*.jar"/>
+		<mkdir dir="${fold-extend-plugins-dir}" />
+		<delete file="${fold-extend-plugins-dir}/bundles.info" />
+		<delete file="${fold-extend-plugins-dir}/bundles.info.fragment" />
+
+		<fileset id="fold-extend-plugins.id" dir="${fold-extend-plugins-dir}" includes="*.jar" />
 		<pathconvert property="fold-extend-plugins" refid="fold-extend-plugins.id" pathsep="${line.separator}">
-			<map from="${fold-extend-plugins-dir}/" to=""/>
+			<map from="${fold-extend-plugins-dir}/" to="" />
 		</pathconvert>
 		<concat destfile="${fold-extend-plugins-dir}/bundles.info.fragment">${fold-extend-plugins}${line.separator}</concat>
-		
+
 		<replaceregexp file="${fold-extend-plugins-dir}/bundles.info.fragment" byline="true">
 			<regexp pattern="([^_]+)_(.*).jar" />
 			<substitution expression="\1,\2,../extend/plugins/\1_\2.jar,4,false" />
 		</replaceregexp>
-		
-		<copy file="${fold-runtime-dir}/eclipse/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info" todir="${fold-extend-plugins-dir}"/>
-		<concat append="true" destfile="${fold-extend-plugins-dir}/bundles.info"><fileset file="${fold-extend-plugins-dir}/bundles.info.fragment"/></concat>
+
+		<copy file="${fold-runtime-dir}/eclipse/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info" todir="${fold-extend-plugins-dir}" />
+		<concat append="true" destfile="${fold-extend-plugins-dir}/bundles.info">
+			<fileset file="${fold-extend-plugins-dir}/bundles.info.fragment" />
+		</concat>
 	</target>
-	
+
 </project>
