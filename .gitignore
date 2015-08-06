@@ -1,8 +1,4 @@
 
-/data/
-/neo4j/
-
-/logs/
 /fold.log
 /fold.PID
 

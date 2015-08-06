@@ -31,15 +31,25 @@ case "$1" in
     rm -f fold.log
     ln -s $FOLD_LOG fold.log
     
-    # thing id
+    # thing profileId
     if [ -z "$2" ]; then
       FOLD_THING_PROFILE_ID="default"
     else
       FOLD_THING_PROFILE_ID="$2"
     fi
     
+    # bundles.info location
+    if [ -f "$FOLD_HOME/extend/plugins/bundles.info" ]; then
+      echo "A"
+      FOLD_BUNDLES_INFO="file://$FOLD_HOME/extend/plugins/bundles.info"
+    else
+      echo "B"
+      FOLD_BUNDLES_INFO="file://$FOLD_HOME/eclipse/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info"
+    fi
+    
     # launch eclipse
     java \
+     -Dorg.eclipse.equinox.simpleconfigurator.configUrl=$FOLD_BUNDLES_INFO \
      -Dnet.locosoft.fold.channel.thing.profile.id=$FOLD_THING_PROFILE_ID \
      -jar $FOLD_HOME/eclipse/plugins/org.eclipse.equinox.launcher_1.3.0.v20140415-2008.jar \
      -consoleLog -clean \
@@ -83,12 +93,21 @@ case "$1" in
     ant -f fold-setup.xml
   fi
   ;;
+  extend)
+  if [ -f "$FOLD_PID_FILE" ]; then
+    FOLD_PID=`cat $FOLD_PID_FILE`
+    echo "Stop fold (process $FOLD_PID) before reconciling extensions!"
+  else
+    ant -f fold-setup.xml reconcile-extensions
+  fi
+  ;;
   *)
   echo "fold usage:"
   echo "  ./fold.sh status"
   echo "  ./fold.sh start [Thing profileId]"
   echo "  ./fold.sh stop"
   echo "  ./fold.sh update"
+  echo "  ./fold.sh extend"
   ;;
 esac
 

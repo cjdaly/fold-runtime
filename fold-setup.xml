@@ -14,6 +14,7 @@
 	<property name="fold-runtime-dir" value="${basedir}" />
 	<property name="fold-data-dirname" value="data" />
 	<property name="fold-data-dir" value="${fold-runtime-dir}/${fold-data-dirname}" />
+	<property name="fold-extend-plugins-dir" value="${fold-runtime-dir}/extend/plugins" />
 	<property name="neo4j-download-version" value="${eclipse-config.net.locosoft.fold.neo4j.version}" />
 	<property name="neo4j-database.location" value="../../${fold-data-dirname}/neo4j/graph.db" />
 
@@ -120,4 +121,24 @@ ${user.name} soft nofile 40000
 		</sequential>
 	</macrodef>
 
+	<target name="reconcile-extensions">
+		<mkdir dir="${fold-extend-plugins-dir}"/>
+		<delete file="${fold-extend-plugins-dir}/bundles.info"/>
+		<delete file="${fold-extend-plugins-dir}/bundles.info.fragment"/>
+		
+		<fileset id="fold-extend-plugins.id" dir="${fold-extend-plugins-dir}" includes="*.jar"/>
+		<pathconvert property="fold-extend-plugins" refid="fold-extend-plugins.id" pathsep="${line.separator}">
+			<map from="${fold-extend-plugins-dir}/" to=""/>
+		</pathconvert>
+		<concat destfile="${fold-extend-plugins-dir}/bundles.info.fragment">${fold-extend-plugins}${line.separator}</concat>
+		
+		<replaceregexp file="${fold-extend-plugins-dir}/bundles.info.fragment" byline="true">
+			<regexp pattern="([^_]+)_(.*).jar" />
+			<substitution expression="\1,\2,../extend/plugins/\1_\2.jar,4,false" />
+		</replaceregexp>
+		
+		<copy file="${fold-runtime-dir}/eclipse/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info" todir="${fold-extend-plugins-dir}"/>
+		<concat append="true" destfile="${fold-extend-plugins-dir}/bundles.info"><fileset file="${fold-extend-plugins-dir}/bundles.info.fragment"/></concat>
+	</target>
+	
 </project>
