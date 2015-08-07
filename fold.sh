@@ -40,10 +40,8 @@ case "$1" in
     
     # bundles.info location
     if [ -f "$FOLD_HOME/extend/plugins/bundles.info" ]; then
-      echo "A"
       FOLD_BUNDLES_INFO="file://$FOLD_HOME/extend/plugins/bundles.info"
     else
-      echo "B"
       FOLD_BUNDLES_INFO="file://$FOLD_HOME/eclipse/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info"
     fi
     

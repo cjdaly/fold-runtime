@@ -141,6 +141,8 @@ ${user.name} soft nofile 40000
 		<concat append="true" destfile="${fold-extend-plugins-dir}/bundles.info">
 			<fileset file="${fold-extend-plugins-dir}/bundles.info.fragment" />
 		</concat>
+
+		<echo>Configured extension plugins:${line.separator}${fold-extend-plugins}</echo>
 	</target>
 
 </project>
